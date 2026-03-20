@@ -32,6 +32,11 @@ public class JobController {
     public List<JobResponseDTO> getJobsByBranch(@PathVariable String branch){
         return jobService.getJobsByBranch(branch);
     }
+    @GetMapping("/company/{companyId}")
+    public List<JobResponseDTO>  getJobByCompany(@PathVariable Long companyId){
+         return jobService.getJobByCompany(companyId);
+    }
+
 
 
 

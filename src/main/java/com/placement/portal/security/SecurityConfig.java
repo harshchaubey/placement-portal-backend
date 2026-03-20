@@ -40,12 +40,12 @@ public class SecurityConfig {
                         .requestMatchers("/companies/pending").hasRole("ADMIN")
 
                         // company only
-                        .requestMatchers("/jobs/**"). hasRole("COMPANY")
+                        //.requestMatchers("/jobs/**"). hasRole("COMPANY")
                         .requestMatchers("/application/job/**").hasRole("COMPANY")
 
                         // student only
                         .requestMatchers("/students/**").hasRole("STUDENT")
-
+                        .requestMatchers("/jobs/**").hasAnyRole("STUDENT", "COMPANY", "ADMIN")
                         .requestMatchers("/applicatons/**").hasRole("STUDENT")
 
                         // all others api

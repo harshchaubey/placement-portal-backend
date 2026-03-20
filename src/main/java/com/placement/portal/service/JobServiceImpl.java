@@ -58,6 +58,13 @@ public class JobServiceImpl implements JobService {
 
          return mapToResponse(job);
      }
+     @Override
+     public List<JobResponseDTO> getJobByCompany(Long companyId){
+         return jobRepository.findByCompany_Id(companyId)
+                  .stream()
+                 .map(this:: mapToResponse)
+                 .toList();
+     }
 
      @Override
      public List<JobResponseDTO> getJobsByBranch(String branch){
@@ -75,7 +82,7 @@ public class JobServiceImpl implements JobService {
                      job.getEligibleBranch(),
                      job.getLastDate(),
                      job.getCompany().getId(),
-                     job.getCompany().getCompanyName()
+                     job.getCompany() != null ? job.getCompany().getCompanyName() : null
              );
          }
      }

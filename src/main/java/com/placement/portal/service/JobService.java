@@ -12,5 +12,5 @@ public interface JobService {
     List<JobResponseDTO> getAllJobs();
     JobResponseDTO getJobById(Long id);
     List<JobResponseDTO> getJobsByBranch(String Branch);
-
+    List<JobResponseDTO> getJobByCompany(Long companyId);
 }

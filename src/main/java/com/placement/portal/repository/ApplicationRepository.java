@@ -8,4 +8,5 @@ import java.util.List;
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
     List<Application> findByStudentId(Long studentId);
     List<Application> findByJobId(Long jobId);
+    List<Application> findByStudentEmail(String email);
 }

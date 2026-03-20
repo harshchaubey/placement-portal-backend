@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface JobRepository extends JpaRepository<Job, Long> {
       List<Job> findByEligibleBranch(String eligibleBranch);
+      List<Job> findByCompany_Id(Long companyId);
 }

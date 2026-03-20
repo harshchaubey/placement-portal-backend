@@ -57,6 +57,13 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .map(this::mapToResponse)
                 .toList();
     }
+    @Override
+    public List<ApplicationResponseDTO> getApplicationByEmail(String email){
+        return applicationRepository.findByStudentEmail(email)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
 
 
 

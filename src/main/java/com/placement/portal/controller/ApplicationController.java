@@ -6,6 +6,7 @@ import com.placement.portal.entity.Application;
 import com.placement.portal.service.ApplicationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,4 +36,8 @@ public class ApplicationController {
     //                                        @RequestParam String status){
     //    return applicationService.updateStatus(applicationId,status);
     //}
+    @GetMapping("/my")
+    public List<ApplicationResponseDTO> getMyApplications(Authentication authentication){
+        return applicationService.getApplicationByEmail(authentication.getName());
+    }
 }
