@@ -2,11 +2,14 @@ package com.placement.portal.controller;
 
 import com.placement.portal.dto.CompanyRequestDTO;
 import com.placement.portal.dto.CompanyResponseDTO;
+import com.placement.portal.entity.Company;
+import com.placement.portal.repository.CompanyRepository;
 import com.placement.portal.service.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
-    @PostMapping("/register")
+    @PostMapping("/profile")
     public ResponseEntity<CompanyResponseDTO> registerCompany(@Valid @RequestBody CompanyRequestDTO dto){
          return ResponseEntity.status(HttpStatus.CREATED).body(companyService.registerCompany(dto));
     }
@@ -40,6 +43,11 @@ public class CompanyController {
     @GetMapping("/pending")
     public List<CompanyResponseDTO> getPendingCompanies(){
         return companyService.getPendingCompanies();
+    }
+
+    @GetMapping("/me")
+    public CompanyResponseDTO getMyProfile(Authentication authentication){
+        return companyService.getCompanyByEmail(authentication);
     }
 
 

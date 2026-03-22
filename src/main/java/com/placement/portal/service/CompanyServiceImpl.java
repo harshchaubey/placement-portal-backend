@@ -7,6 +7,7 @@ import com.placement.portal.exception.BadRequestException;
 import com.placement.portal.exception.ResourceNotFoundException;
 import com.placement.portal.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class CompanyServiceImpl implements CompanyService{
          company.setCompanyName(dto.getCompanyName());
          company.setEmail(dto.getEmail());
          company.setLocation(dto.getLocation());
-         company.setVerified(false);
+         company.setVerified(true);
 
          Company savedCompany = companyRepository.save(company);
          return mapToResponse(savedCompany);
@@ -63,6 +64,16 @@ public class CompanyServiceImpl implements CompanyService{
                 .stream()
                 .map(this :: mapToResponse)
                 .toList();
+    }
+    @Override
+
+    public CompanyResponseDTO getCompanyByEmail(Authentication authentication){
+        String email = authentication.getName();
+      //  System.out.println(authentication.getName());
+        Company company = companyRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Company not found"));
+        return mapToResponse(company);
     }
 
 

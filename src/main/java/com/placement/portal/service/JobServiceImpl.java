@@ -9,6 +9,7 @@ import com.placement.portal.exception.ResourceNotFoundException;
 import com.placement.portal.repository.CompanyRepository;
 import com.placement.portal.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,10 +23,13 @@ public class JobServiceImpl implements JobService {
      private final CompanyRepository companyRepository;
 
      @Override
-    public JobResponseDTO postJob(JobRequestDTO dto, Long companyId ){
+    public JobResponseDTO postJob(JobRequestDTO dto, Authentication authentication) {
+         String email = authentication.getName();
+         System.out.println(email);
+         Company company = companyRepository.findByEmail(email)
+                 .orElseThrow(() -> new ResourceNotFoundException("Company not found with email: " ));
 
-         Company company = companyRepository.findById(companyId)
-                 .orElseThrow(() -> new ResourceNotFoundException("Company not found"));
+
 
          if(!company.isVerified()){
              throw new BadRequestException("Company is not verified");

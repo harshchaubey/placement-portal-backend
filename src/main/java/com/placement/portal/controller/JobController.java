@@ -4,6 +4,7 @@ import com.placement.portal.dto.JobRequestDTO;
 import com.placement.portal.dto.JobResponseDTO;
 import com.placement.portal.service.JobService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +15,10 @@ import java.util.List;
 public class JobController {
 
     private final JobService jobService;
-    @PostMapping("/post/{companyId}")
-    public JobResponseDTO postJob(@RequestBody JobRequestDTO dto, @PathVariable Long companyId){
-         return jobService.postJob(dto,companyId);
+    @PostMapping("/post")
+    public JobResponseDTO postJob(@RequestBody JobRequestDTO dto, Authentication authentication) {
+        System.out.println(authentication.getName());
+         return jobService.postJob(dto,authentication);
     }
     @GetMapping
     public List<JobResponseDTO> getAllJobs(){

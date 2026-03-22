@@ -7,12 +7,15 @@ import lombok.Data;
 @Data
 public class CompanyRequestDTO {
 
-    @NotBlank(message = "Company name is required")
+    //@NotBlank(message = "Company name is required")
     private String companyName;
 
     @Email(message = "Invalid email format")
-    @NotBlank(message = "Email is required")
+   @NotBlank(message = "Email is required")
     private String email;
+
+
+
 
     @NotBlank(message = "Location is required")
     private String location;

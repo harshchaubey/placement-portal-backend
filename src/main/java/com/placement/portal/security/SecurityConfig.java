@@ -27,14 +27,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // public endpoints
+                        .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/auth/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html"
                                 ).permitAll()
 
-                        .requestMatchers("/companies/register").permitAll()
-
+                        .requestMatchers("/companies/profile").permitAll()
+                        .requestMatchers("/students/profile").permitAll()
                         // admin only
                         .requestMatchers("/companies/verify/**").hasRole("ADMIN")
                         .requestMatchers("/companies/pending").hasRole("ADMIN")

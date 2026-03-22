@@ -7,6 +7,7 @@ import com.placement.portal.service.StudentService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class StudentController {
      private final StudentService studentService;
 
-     @PostMapping
+     @PostMapping("/profile")
      public StudentResponseDTO addStudent(@Valid @RequestBody StudentRequestDTO dto){
 
          return studentService.addStudent(dto);
@@ -48,5 +49,10 @@ public class StudentController {
 
           studentService.deleteStudent(id);
          return "Student deleted successfully";
+    }
+    @GetMapping("/me")
+    public StudentResponseDTO getMyProfile(Authentication authentication){
+
+        return studentService.getMyProfile(authentication);
     }
 }

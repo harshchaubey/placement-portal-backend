@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
@@ -42,6 +43,7 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(Authentication authentication) {
 
+        if(authentication == null) { throw new RuntimeException("Authentication object is null"); }
         String email = authentication.getName(); // ✅ correct way
 
         User user = userRepository.findByEmail(email)
