@@ -36,6 +36,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/companies/profile").permitAll()
                         .requestMatchers("/students/profile").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         // admin only
                         .requestMatchers("/companies/verify/**").hasRole("ADMIN")
                         .requestMatchers("/companies/pending").hasRole("ADMIN")

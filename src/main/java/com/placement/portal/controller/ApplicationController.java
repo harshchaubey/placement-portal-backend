@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ import java.util.List;
 public class ApplicationController {
     private final ApplicationService applicationService;
 
-    @PostMapping("/apply")
-    public ApplicationResponseDTO applyForJob(@Valid @RequestBody ApplicationRequestDTO  dto){
-        return applicationService.applyForJob(dto);
+    @PostMapping("/apply/{jobId}")
+    public ApplicationResponseDTO applyForJob(@PathVariable Long jobId,@RequestParam("resume") MultipartFile resume) {
+        return applicationService.applyForJob(jobId , resume);
     }
     @GetMapping("/job/{jobId}")
     public List<ApplicationResponseDTO> getApplicationsByJobId(@PathVariable Long jobId){
@@ -27,9 +28,14 @@ public class ApplicationController {
     }
 
     @GetMapping("/student/{studentId}")
-    public List<ApplicationResponseDTO> getApplicationsByStudentId(@PathVariable Long studentId){
-        return applicationService.getApplicationsByStudent(studentId);
+    public List<ApplicationResponseDTO> getApplicationsByStudentId(Authentication authentication){
+        return applicationService.getApplicationsByStudent(authentication);
     }
+
+   /* @GetMapping("/company")
+    public List<ApplicationResponseDTO> getApplicationsByCompanyId(Authentication authentication){
+          return applicationService.getApplicationsByCompany(authentication);
+    }*/
 
    // @GetMapping("/status/{applicationId}")
    // public Application getApplicationStatus(@PathVariable Long applicationId ,

@@ -63,8 +63,9 @@ public class JobServiceImpl implements JobService {
          return mapToResponse(job);
      }
      @Override
-     public List<JobResponseDTO> getJobByCompany(Long companyId){
-         return jobRepository.findByCompany_Id(companyId)
+     public List<JobResponseDTO> getJobByCompany(Authentication authentication){
+         String email = authentication.getName();
+         return jobRepository.findByCompanyEmail(email)
                   .stream()
                  .map(this:: mapToResponse)
                  .toList();

@@ -18,4 +18,7 @@ public class ApplicationResponseDTO {
     private Long jobId;
     private String jobTitle;
     private String companyName;
+
+    private String ResumePath;
+
 }

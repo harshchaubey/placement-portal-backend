@@ -29,5 +29,8 @@ public class Application {
 
     private String status;
 
+    private String fileName;
+    private String ResumePath;
+
     // Applied,shortlisted,rejected,selected;
 }
